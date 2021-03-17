@@ -14,8 +14,8 @@ const Blog = ({blogs}) => {
             </div>
           </div>
           <div className="row">
-
-          {blogs && blogs.map(blog => {
+{/* 
+          {blogs ? blogs.map(blog => {
 
             <div className="col-md-4">
               <div className="blog-post-style-02 mb-4 mb-md-0">
@@ -31,8 +31,8 @@ const Blog = ({blogs}) => {
                 </div>
               </div>
             </div>
-          })}
-          
+          }) : 'No post found'} */}
+
             <div className="col-md-4">
               <div className="blog-post-style-02 mb-4 mb-md-0">
                 <div className="blog-post-img">

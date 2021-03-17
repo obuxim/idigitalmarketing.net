@@ -1,30 +1,28 @@
-import Breadcumb from "../components/Redeempage/Breadcumb"
-import Form from "../components/Redeempage/Form"
+import Breadcumb from "../components/Assignmentsubmissionpage/Breadcumb"
+import Form from "../components/Assignmentsubmissionpage/Form"
 
 
-const redeem = () => {
+const Assignmentsubmission = () => {
     return (
-        <>
+        <div>
             <section class="inner-header bg-holder bg-overlay-black-90" style={{backgroundImage: `url('images/bg/03.jpg')`}}>
                 <div class="container">
                     <div class="row align-items-center">
                     <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
-                        <h1 class="breadcrumb-title mb-0 text-white">Redeem</h1>
+                        <h1 class="breadcrumb-title mb-0 text-white">Assignment Submission</h1>
                     </div>
                     <div class="col-md-6">
                         <ol class="breadcrumb d-flex justify-content-center justify-content-md-end ml-auto">
                         <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home mr-1"></i>Home</a></li>
-                        <li class="breadcrumb-item active"><span>redeem</span></li>
+                        <li class="breadcrumb-item active"><span>assignmentsubmission</span></li>
                         </ol>
                     </div>
                     </div>
                 </div>
             </section>
-          <Form />
-         
-
-        </>
+           <Form /> 
+        </div>
     )
 }
 
-export default redeem
+export default Assignmentsubmission

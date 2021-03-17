@@ -2,7 +2,7 @@ const BlogPosts = ({posts}) => {
     console.log(posts)
     return (
         <div>
-            {posts && posts.map(post => 
+            {posts ? posts.map(post => 
                 <div key={post.id} class="blog-post mb-4 mb-sm-5">
                     <div class="blog-post-image">
                         <img class="img-fluid rounded-sm" src="images/blog/02.jpg" alt="" />
@@ -34,7 +34,7 @@ const BlogPosts = ({posts}) => {
                     </div>
                     </div>
                 </div>
-            )}
+            ) : 'Nothing found'}
 
             <div class="blog-post mb-4 mb-sm-5">
                 <div class="blog-post-image">

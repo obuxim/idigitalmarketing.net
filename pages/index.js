@@ -6,7 +6,7 @@ import FeatureInfo from "../components/homepage/FeatureInfo";
 import FeatureInfoProgress from "../components/homepage/FeatureInfoProgress";
 import Testimonial from "../components/homepage/Testimonial";
 import Video from "../components/homepage/Video";
-
+import axios from 'axios'
 const fetchData = async () => 
     await axios.get('')
     .then(res => ({
