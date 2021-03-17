@@ -1,7 +1,7 @@
 import BlogPosts from "./BlogPosts";
 import BlogSidebar from "./BlogSidebar";
 
-const Blog = () => {
+const Blog = ({posts}) => {
     return (
         <section class="space-ptb">
         <div class="container">
@@ -10,7 +10,7 @@ const Blog = () => {
                 <BlogSidebar />
             </div>
             <div class="col-lg-8 order-1 order-lg-1">   
-                |<BlogPosts />
+                |<BlogPosts posts={posts} />
                 <div class="row">
                     <div class="col-12 text-center mt-4 mt-md-5">
                         <nav>

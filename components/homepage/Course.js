@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Course = () => {
+const Course = ({blogs}) => {
     return (
         <section className="space-ptb overflow-hidden">
         <div className="container">

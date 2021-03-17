@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Courses = () => {
+const Courses = ({courses}) => {
+    console.log(courses)
     return (
     <section class="space-ptb course-details">
         <div class="container">
@@ -90,7 +91,7 @@ const Courses = () => {
             <div class="col-lg-8 mt-5 mt-lg-0">
             <div class="row mb-4">
                 <div class="col-12">
-                <h6 class="mb-0">Showing 1-5 of <span class="text-primary">28 course</span></h6>
+                <h6 class="mb-0">Showing 1-5 of <span class="text-primary">{courses && courses.length} course</span></h6>
                 </div>
             </div>
             <div class="course-filter d-sm-flex mb-4">
@@ -143,29 +144,32 @@ const Courses = () => {
                 </ul>
             </div>
             <div class="row">
-                <div class="col-sm-6 mb-4 pb-2">
-                <div class="course">
-                    <div class="course-img">
-                        <img class="img-fluid" src="images/course/01.jpg" alt="" />
-                        <a href="#" class="course-category"><i class="far fa-bookmark"></i>Development</a>
-                    </div>
-                    <div class="course-info">
-                    <div class="course-title">
-                        <a href="#">Basic web development & coding online course</a>
-                    </div>
-                    <div class="course-instructor">by
-                        <a href="#">Alice Williams</a>
-                    </div>
-                    <div class="course-rate-price">
-                        <div class="rating">
-                            <span>4.1</span>
-                            <a href="#">101 Ratings</a>                      
+                {courses && courses.map(course => {
+                    <div key={course.id} class="col-sm-6 mb-4 pb-2">
+                        <div class="course">
+                            <div class="course-img">
+                                <img class="img-fluid" src="images/course/01.jpg" alt="" />
+                                <a href="#" class="course-category"><i class="far fa-bookmark"></i>Development</a>
                             </div>
-                            <div class="price">$59</div>
+                            <div class="course-info">
+                                <div class="course-title">
+                                    <a href="#">Basic web development & coding online course</a>
+                                </div>
+                                <div class="course-instructor">by
+                                    <a href="#">Alice Williams</a>
+                                </div>
+                                <div class="course-rate-price">
+                                    <div class="rating">
+                                        <span>4.1</span>
+                                        <a href="#">101 Ratings</a>                      
+                                    </div>
+                                    <div class="price">$59</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                })}
+
                 <div class="col-sm-6 mb-4 pb-2">
                     <div class="course">
                         <div class="course-img">
@@ -188,31 +192,31 @@ const Courses = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 mb-4 pb-2">
-                        <div class="course">
-                            <div class="course-img">
-                                    <img class="img-fluid" src="images/course/02.jpg" alt="" />
-                                    <a href="#" class="course-category"><i class="far fa-bookmark"></i> Design</a>
+                </div>
+                <div class="col-sm-6 mb-4 pb-2">
+                    <div class="course">
+                        <div class="course-img">
+                                <img class="img-fluid" src="images/course/02.jpg" alt="" />
+                                <a href="#" class="course-category"><i class="far fa-bookmark"></i> Design</a>
+                            </div>
+                            <div class="course-info">
+                            <div class="course-title">
+                                <a href="#">UX & web design master course: Strategy, design..</a>
+                            </div>
+                            <div class="course-instructor">by
+                                <a href="#">Joana Williams</a>
+                            </div>
+                            <div class="course-rate-price">
+                                <div class="rating">
+                                <span>3.1</span>
+                                <a href="#">57 Ratings</a>
                                 </div>
-                                <div class="course-info">
-                                <div class="course-title">
-                                    <a href="#">UX & web design master course: Strategy, design..</a>
-                                </div>
-                                <div class="course-instructor">by
-                                    <a href="#">Joana Williams</a>
-                                </div>
-                                <div class="course-rate-price">
-                                    <div class="rating">
-                                    <span>3.1</span>
-                                    <a href="#">57 Ratings</a>
-                                    </div>
-                                    <div class="price">$49</div>
-                                </div>
+                                <div class="price">$49</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 mb-4 pb-2">
+                </div>
+                <div class="col-sm-6 mb-4 pb-2">
                     <div class="grid-item" data-groups='["marketing"]'>
                         <div class="course">
                         <div class="course-img">
@@ -236,8 +240,8 @@ const Courses = () => {
                         </div>
                         </div>
                     </div>
-                    </div>
-                    <div class="col-sm-6 mb-4 pb-2">
+                </div>
+                <div class="col-sm-6 mb-4 pb-2">
                     <div class="course">
                         <div class="course-img">
                         <img class="img-fluid" src="images/course/04.jpg" alt="" />
@@ -259,8 +263,8 @@ const Courses = () => {
                         </div>
                         </div>
                     </div>
-                    </div>
-                    <div class="col-sm-6 mb-4 pb-2">
+                </div>
+                <div class="col-sm-6 mb-4 pb-2">
                     <div class="course">
                         <div class="course-img">
                         <img class="img-fluid" src="images/course/05.jpg" alt="" />
@@ -282,54 +286,55 @@ const Courses = () => {
                         </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                     <div class="col-sm-6 mb-4 pb-2 mb-sm-0 pb-lg-0">
-                    <div class="course">
-                        <div class="course-img">
-                        <img class="img-fluid" src="images/course/06.jpg" alt="" />
-                        <a href="#" class="course-category"><i class="far fa-bookmark"></i> Music</a>
-                        </div>
-                        <div class="course-info">
-                        <div class="course-title">
-                            <a href="#">Composing music with others online course</a>
-                        </div>
-                        <div class="course-instructor">by
-                            <a href="#">Paul Flavius</a>
-                        </div>
-                        <div class="course-rate-price">
-                            <div class="rating">
-                            <span>1.4</span>
-                            <a href="#">157 Ratings</a>
+                        <div class="course">
+                            <div class="course-img">
+                            <img class="img-fluid" src="images/course/06.jpg" alt="" />
+                            <a href="#" class="course-category"><i class="far fa-bookmark"></i> Music</a>
                             </div>
-                            <div class="price">$149</div>
+                            <div class="course-info">
+                            <div class="course-title">
+                                <a href="#">Composing music with others online course</a>
+                            </div>
+                            <div class="course-instructor">by
+                                <a href="#">Paul Flavius</a>
+                            </div>
+                            <div class="course-rate-price">
+                                <div class="rating">
+                                <span>1.4</span>
+                                <a href="#">157 Ratings</a>
+                                </div>
+                                <div class="price">$149</div>
+                            </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
                     </div>
                     <div class="col-sm-6">
-                    <div class="course">
-                        <div class="course-img">
-                        <img class="img-fluid" src="images/course/07.jpg" alt="" />
-                        <a href="#" class="course-category"><i class="far fa-bookmark"></i> Personal Development</a>
-                        </div>
-                        <div class="course-info">
-                        <div class="course-title">
-                            <a href="#">Great thinking devices to help you learn tough topics</a>
-                        </div>
-                        <div class="course-instructor">by
-                            <a href="#">Alice Williams</a>
-                        </div>
-                        <div class="course-rate-price">
-                            <div class="rating">
-                            <span>4.4</span>
-                            <a href="#">18 Ratings</a>
+                        <div class="course">
+                            <div class="course-img">
+                            <img class="img-fluid" src="images/course/07.jpg" alt="" />
+                            <a href="#" class="course-category"><i class="far fa-bookmark"></i> Personal Development</a>
                             </div>
-                            <div class="price">$79</div>
+                            <div class="course-info">
+                            <div class="course-title">
+                                <a href="#">Great thinking devices to help you learn tough topics</a>
+                            </div>
+                            <div class="course-instructor">by
+                                <a href="#">Alice Williams</a>
+                            </div>
+                            <div class="course-rate-price">
+                                <div class="rating">
+                                <span>4.4</span>
+                                <a href="#">18 Ratings</a>
+                                </div>
+                                <div class="price">$79</div>
+                            </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-12 text-center mt-4 mt-md-5">
                     <nav>

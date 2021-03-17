@@ -1,37 +1,40 @@
-const BlogPosts = () => {
+const BlogPosts = ({posts}) => {
+    console.log(posts)
     return (
         <div>
-            <div class="blog-post mb-4 mb-sm-5">
-                <div class="blog-post-image">
-                    <img class="img-fluid rounded-sm" src="images/blog/02.jpg" alt="" />
-                </div>
-                <div class="blog-post-content">
-                <div class="blog-post-info">
-                    <div class="blog-post-author">
-                    <a href="#" class="btn btn-link"><i class="far fa-folder-open"></i>Marketing</a>
+            {posts && posts.map(post => 
+                <div key={post.id} class="blog-post mb-4 mb-sm-5">
+                    <div class="blog-post-image">
+                        <img class="img-fluid rounded-sm" src="images/blog/02.jpg" alt="" />
                     </div>
-                    <div class="blog-post-date"><a href="#"><i class="far fa-calendar"></i>Jan 4, 2020 </a></div>
-                </div>
-                <div class="blog-post-details">
-                    <h5 class="blog-post-title">
-                    <a href="blog-single.html">You can expand students access to learning</a>
-                    </h5>
-                    <p>Concentrate on your breathing, engage in the moment and spend some time being still, quiet and drift inside of your own mind. Hypnotize yourself here.</p>
-                </div>
-                <div class="blog-post-footer d-flex align-items-center">
-                    <a href="#" class="btn btn-primary">Read more</a>
-                    <div class="social-share ml-auto">
-                    <a href="#"><i class="fas fa-share-alt mr-2 text-primary"></i></a>
-                    <ul class="social-share">
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                    </ul>
+                    <div class="blog-post-content">
+                    <div class="blog-post-info">
+                        <div class="blog-post-author">
+                        <a href="#" class="btn btn-link"><i class="far fa-folder-open"></i>Marketing</a>
+                        </div>
+                        <div class="blog-post-date"><a href="#"><i class="far fa-calendar"></i>Jan 4, 2020 </a></div>
+                    </div>
+                    <div class="blog-post-details">
+                        <h5 class="blog-post-title">
+                        <a href="blog-single.html">You can expand students access to learning</a>
+                        </h5>
+                        <p>Concentrate on your breathing, engage in the moment and spend some time being still, quiet and drift inside of your own mind. Hypnotize yourself here.</p>
+                    </div>
+                    <div class="blog-post-footer d-flex align-items-center">
+                        <a href="#" class="btn btn-primary">Read more</a>
+                        <div class="social-share ml-auto">
+                        <a href="#"><i class="fas fa-share-alt mr-2 text-primary"></i></a>
+                        <ul class="social-share">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                        </ul>
+                        </div>
+                    </div>
                     </div>
                 </div>
-                </div>
-            </div>
+            )}
 
             <div class="blog-post mb-4 mb-sm-5">
                 <div class="blog-post-image">
@@ -64,6 +67,7 @@ const BlogPosts = () => {
                     </div>
                 </div>
             </div>
+
             <div class="blog-post mb-4 mb-sm-5">
                 <div class="blog-post-image">
                     <img class="img-fluid rounded-sm" src="images/blog/03.jpg" alt="" />

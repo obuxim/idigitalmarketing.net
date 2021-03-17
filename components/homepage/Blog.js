@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Blog = () => {
+const Blog = ({blogs}) => {
     return (
         <section className="space-ptb">
         <div className="container">
@@ -8,11 +8,15 @@ const Blog = () => {
             <div className="col-md-9 col-sm-10">
               <div className="section-title text-center">
                 <h2>News, Tips & Articles</h2>
-                <p>The best way is to develop and follow a plan. Start with your goals in mind and then work. backwards to develop the plan. What steps are required to get you to the goals.</p>
+                <p>The best way is to develop and follow a plan. Start with your goals in mind and then work.
+                   backwards to develop the plan. What steps are required to get you to the goals.</p>
               </div>
             </div>
           </div>
           <div className="row">
+
+          {blogs && blogs.map(blog => {
+
             <div className="col-md-4">
               <div className="blog-post-style-02 mb-4 mb-md-0">
                 <div className="blog-post-img">
@@ -27,6 +31,8 @@ const Blog = () => {
                 </div>
               </div>
             </div>
+          })}
+          
             <div className="col-md-4">
               <div className="blog-post-style-02 mb-4 mb-md-0">
                 <div className="blog-post-img">
