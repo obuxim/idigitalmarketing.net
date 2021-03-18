@@ -1,56 +1,56 @@
 const CheckoutDetails = () => {
     return (
-        <section class="space-ptb">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="checkout-info mb-4 mb-md-5">
-                <p class="mb-0"><strong>Returning customer?</strong> <a href="login.html">Click here to login</a></p>
+        <section className="space-ptb">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="checkout-info mb-4 mb-md-5">
+                <p className="mb-0"><strong>Returning customer?</strong> <a href="login.html">Click here to login</a></p>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="checkout-info-coupon mb-5">
-                <p class="checkout-info"><strong>Have a coupon?</strong>
+            <div className="col-md-6">
+              <div className="checkout-info-coupon mb-5">
+                <p className="checkout-info"><strong>Have a coupon?</strong>
                   <a data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
                     Click here to enter your code
                   </a>
                 </p>
-                <div class="collapse" id="collapse">
-                  <div class="checkout-coupon">
+                <div className="collapse" id="collapse">
+                  <div className="checkout-coupon">
                     <p>If you have a coupon code, please apply it below.</p>
-                    <form class="form-row">
-                      <div class="form-group col-sm-12">
-                        <input type="text" class="form-control" id="coupon_code" placeholder="Coupon code" />
+                    <form className="form-row">
+                      <div className="form-group col-sm-12">
+                        <input type="text" className="form-control" id="coupon_code" placeholder="Coupon code" />
                       </div>
                     </form>
-                    <a href="#" class="btn btn-primary">Apply coupon</a>
+                    <a href="#" className="btn btn-primary">Apply coupon</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="checkout">
-                <div class="section-title">
-                  <h4 class="title">Billing details</h4>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="checkout">
+                <div className="section-title">
+                  <h4 className="title">Billing details</h4>
                 </div>
-                <form class="form-row mt-4">
-                  <div class="form-group col-sm-12">
+                <form className="form-row mt-4">
+                  <div className="form-group col-sm-12">
                     <label>First name</label>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group col-sm-12">
+                  <div className="form-group col-sm-12">
                     <label>Last name</label>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group col-sm-12">
+                  <div className="form-group col-sm-12">
                     <label>Company name</label>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group select-border col-sm-12">
+                  <div className="form-group select-border col-sm-12">
                     <label>Country</label>
-                    <select class="form-control basic-select">
+                    <select className="form-control basic-select">
                       <option value="value 01" selected="selected">Armenia</option>
                       <option value="AR">Argentina</option>
                       <option value="AM">Armenia</option>
@@ -121,16 +121,16 @@ const CheckoutDetails = () => {
                       <option value="ZW">Zimbabwe</option>
                     </select>
                   </div>
-                  <div class="form-group col-sm-12">
+                  <div className="form-group col-sm-12">
                     <label>Street Address</label>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group col-sm-12">
-                    <input type="text" class="form-control" placeholder="" />
+                  <div className="form-group col-sm-12">
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group col-sm-12 select-border">
+                  <div className="form-group col-sm-12 select-border">
                     <label>City</label>
-                    <select class="form-control basic-select">
+                    <select className="form-control basic-select">
                       <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                       <option value="Andhra Pradesh">Andhra Pradesh</option>
                       <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -168,9 +168,9 @@ const CheckoutDetails = () => {
                       <option value="West Bengal">West Bengal</option>
                     </select>
                   </div>
-                  <div class="form-group select-border col-sm-12">
+                  <div className="form-group select-border col-sm-12">
                     <label>State</label>
-                    <select class="form-control basic-select">
+                    <select className="form-control basic-select">
                       <option value="AL">Alabama</option>
                       <option value="AK">Alaska</option>
                       <option value="AZ">Arizona</option>
@@ -224,32 +224,32 @@ const CheckoutDetails = () => {
                       <option value="WY">Wyoming</option>
                     </select>
                   </div>
-                  <div class="form-group col-sm-12">
+                  <div className="form-group col-sm-12">
                     <label>ZIP</label>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group col-sm-12">
+                  <div className="form-group col-sm-12">
                     <label>Phone</label>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input type="text" className="form-control" placeholder="" />
                   </div>
-                  <div class="form-group col-sm-12 mb-0">
+                  <div className="form-group col-sm-12 mb-0">
                     <label>Email Address:</label>
-                    <input type="email" class="form-control" placeholder="" />
+                    <input type="email" className="form-control" placeholder="" />
                   </div>
                 </form>
               </div>
             </div>
-            <div class="col-md-6 mt-5 mt-md-0">
-              <div class="section-title">
-                <h4 class="title">Your order</h4>
+            <div className="col-md-6 mt-5 mt-md-0">
+              <div className="section-title">
+                <h4 className="title">Your order</h4>
               </div>
-              <div class="checkout-review">
-                <div class="table-responsive">
-                  <table class="table cart">
+              <div className="checkout-review">
+                <div className="table-responsive">
+                  <table className="table cart">
                     <tbody>
                       <tr>
-                        <th class="border-top-0 product-name" scope="row">Product</th>
-                        <th class="border-top-0 product-total" scope="row">Subtotal</th>
+                        <th className="border-top-0 product-name" scope="row">Product</th>
+                        <th className="border-top-0 product-total" scope="row">Subtotal</th>
                       </tr>
                       <tr>
                         <td> Landscape Visitors Book - 122 Pages, A Design, A4 </td>
@@ -260,95 +260,95 @@ const CheckoutDetails = () => {
                         <td> $348.00 </td>
                       </tr>
                       <tr>
-                        <th class="product-name" scope="row">Subtotal</th>
-                        <td class="product-total amount"><strong> $708.00 </strong></td>
+                        <th className="product-name" scope="row">Subtotal</th>
+                        <td className="product-total amount"><strong> $708.00 </strong></td>
                       </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                      <th class="shipping">Shipping</th>
+                      <th className="shipping">Shipping</th>
                       <td>
-                        <div class="custom-control custom-radio">
-                          <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" />
-                          <label class="custom-control-label" for="customRadio1">Flat rate</label>
+                        <div className="custom-control custom-radio">
+                          <input type="radio" id="customRadio1" name="customRadio" className="custom-control-input" />
+                          <label className="custom-control-label" for="customRadio1">Flat rate</label>
                         </div>
-                        <div class="custom-control custom-radio">
-                          <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" />
-                          <label class="custom-control-label" for="customRadio2">Local pickup</label>
+                        <div className="custom-control custom-radio">
+                          <input type="radio" id="customRadio2" name="customRadio" className="custom-control-input" />
+                          <label className="custom-control-label" for="customRadio2">Local pickup</label>
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <th class="product-total" scope="row">Total</th>
-                      <td class="product-total amount text-primary"><strong> $708.00 </strong></td>
+                      <th className="product-total" scope="row">Total</th>
+                      <td className="product-total amount text-primary"><strong> $708.00 </strong></td>
                     </tr>
                     </tfoot>
                   </table>
                 </div>
-                <div class="accordion mb-3" id="accordion-faq">
-                  <div class="card">
-                    <div class="accordion-icon card-header" id="headingOne">
-                      <h6 class="mb-0">
-                      <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div className="accordion mb-3" id="accordion-faq">
+                  <div className="card">
+                    <div className="accordion-icon card-header" id="headingOne">
+                      <h6 className="mb-0">
+                      <button className="btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                       Direct bank transfer
                       </button>
                       </h6>
                     </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-faq">
-                      <div class="card-body">
+                    <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion-faq">
+                      <div className="card-body">
                         Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
                       </div>
                     </div>
                   </div>
-                  <div class="card">
-                    <div class="accordion-icon card-header" id="headingTwo">
-                      <h6 class="mb-0">
-                      <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <div className="card">
+                    <div className="accordion-icon card-header" id="headingTwo">
+                      <h6 className="mb-0">
+                      <button className="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                       Check payments
                       </button>
                       </h6>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-faq">
-                      <div class="card-body">
+                    <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordion-faq">
+                      <div className="card-body">
                         Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.
                       </div>
                     </div>
                   </div>
-                  <div class="card">
-                    <div class="accordion-icon card-header" id="headingthree">
-                      <h6 class="mb-0">
-                      <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapsethree" aria-expanded="false" aria-controls="collapsethree">
+                  <div className="card">
+                    <div className="accordion-icon card-header" id="headingthree">
+                      <h6 className="mb-0">
+                      <button className="btn collapsed" type="button" data-toggle="collapse" data-target="#collapsethree" aria-expanded="false" aria-controls="collapsethree">
                       Cash on delivery
                       </button>
                       </h6>
                     </div>
-                    <div id="collapsethree" class="collapse" aria-labelledby="headingthree" data-parent="#accordion-faq">
-                      <div class="card-body">
+                    <div id="collapsethree" className="collapse" aria-labelledby="headingthree" data-parent="#accordion-faq">
+                      <div className="card-body">
                         Pay with cash upon delivery.
                       </div>
                     </div>
                   </div>
-                  <div class="card">
-                    <div class="accordion-icon card-header" id="headingfor">
-                      <h6 class="mb-0">
-                      <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapsefor" aria-expanded="false" aria-controls="collapsefor">
+                  <div className="card">
+                    <div className="accordion-icon card-header" id="headingfor">
+                      <h6 className="mb-0">
+                      <button className="btn collapsed" type="button" data-toggle="collapse" data-target="#collapsefor" aria-expanded="false" aria-controls="collapsefor">
                       PayPal
                       </button>
                       </h6>
                     </div>
-                    <div id="collapsefor" class="collapse" aria-labelledby="headingfor" data-parent="#accordion-faq">
-                      <div class="card-body">
+                    <div id="collapsefor" className="collapse" aria-labelledby="headingfor" data-parent="#accordion-faq">
+                      <div className="card-body">
                         Pay with cash upon delivery.
                       </div>
                     </div>
                   </div>
                 </div>
                 <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our<a href="#"> privacy policy.</a></p>
-                <div class="custom-control custom-checkbox my-4">
-                  <input type="checkbox" class="custom-control-input" id="dateposted1" />
-                  <label class="custom-control-label" for="dateposted1"> I have read and agree to the website <a href="#">terms and conditions</a></label>
+                <div className="custom-control custom-checkbox my-4">
+                  <input type="checkbox" className="custom-control-input" id="dateposted1" />
+                  <label className="custom-control-label" for="dateposted1"> I have read and agree to the website <a href="#">terms and conditions</a></label>
                 </div>
-                <button type="button" class="btn btn-primary btn-lg btn-block">Place order</button>
+                <button type="button" className="btn btn-primary btn-lg btn-block">Place order</button>
               </div>
             </div>
           </div>

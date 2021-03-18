@@ -3,39 +3,39 @@ import BlogSidebar from "./BlogSidebar";
 
 const Blog = ({posts}) => {
     return (
-        <section class="space-ptb">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-4 mt-lg-0 mt-5 order-2 order-lg-1">
+        <section className="space-ptb">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4 mt-lg-0 mt-5 order-2 order-lg-1">
                 <BlogSidebar />
             </div>
-            <div class="col-lg-8 order-1 order-lg-1">   
+            <div className="col-lg-8 order-1 order-lg-1">   
                 |<BlogPosts posts={posts} />
-                <div class="row">
-                    <div class="col-12 text-center mt-4 mt-md-5">
+                <div className="row">
+                    <div className="col-12 text-center mt-4 mt-md-5">
                         <nav>
-                            <ul class="pagination justify-content-center mb-0">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
+                            <ul className="pagination justify-content-center mb-0">
+                                <li className="page-item">
+                                    <a className="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
+                                    <span className="sr-only">Previous</span>
                                     </a>
                                 </li>
-                                <li class="page-item active">
-                                    <span class="page-link">
+                                <li className="page-item active">
+                                    <span className="page-link">
                                     1
-                                    <span class="sr-only">(current)</span>
+                                    <span className="sr-only">(current)</span>
                                     </span>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
+                                <li className="page-item"><a className="page-link" href="#">2</a></li>
+                                <li className="page-item"><a className="page-link" href="#">3</a></li>
+                                <li className="page-item"><a className="page-link" href="#">4</a></li>
+                                <li className="page-item"><a className="page-link" href="#">5</a></li>
+                                <li className="page-item"><a className="page-link" href="#">6</a></li>
+                                <li className="page-item">
+                                    <a className="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
+                                    <span className="sr-only">Next</span>
                                     </a>
                                 </li>
                             </ul>
