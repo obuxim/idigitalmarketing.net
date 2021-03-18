@@ -2,7 +2,6 @@ import Head from "next/head";
 import React from "react";
 import Footer from "./Footer";
 import LoginPopUp from "./LoginPopUp";
-import Nav from "./Nav";
 import { useRouter } from 'next/router';
 import Header1 from "./Header1";
 import Header2 from "./Header2";
