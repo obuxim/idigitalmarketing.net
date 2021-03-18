@@ -197,7 +197,7 @@ const CustomCart = () => {
                                         <img src="images/shop/01.jpg" alt="" className="img-fluid img-responsive"/>
                                     </div>
                                     <div className="contents">
-                                        <h4>Ultimate Photography Bundle</h4>
+                                        <h5>Ultimate Photography Bundle</h5>
                                         <p><span>425.00  x 1</span> <div>£450.00</div></p>
                                     </div>
                                 </li>
@@ -206,7 +206,7 @@ const CustomCart = () => {
                                         <img src="images/shop/01.jpg" alt="" className="img-fluid img-responsive"/>
                                     </div>
                                     <div className="contents">
-                                        <h4>Ultimate Photography Bundle</h4>
+                                        <h5>Ultimate Photography Bundle</h5>
                                         <p><span>425.00  x 1</span> <div>£450.00</div></p>
                                     </div>
                                 </li>
@@ -215,7 +215,7 @@ const CustomCart = () => {
                                         <img src="images/shop/01.jpg" alt="" className="img-fluid img-responsive"/>
                                     </div>
                                     <div className="contents">
-                                        <h4>Ultimate Photography Bundle</h4>
+                                        <h5>Ultimate Photography Bundle</h5>
                                         <p><span>425.00  x 1</span> <div>£450.00</div></p>
                                     </div>
                                 </li>
