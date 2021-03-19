@@ -1,10 +1,11 @@
 import React from 'react';
-
-const blogsingle = ({post}) => {
+import BlogSingleHeader from "../../components/blogpage/BlogSingleHeader";
+import BlogSingleContent from "../../components/blogpage/BlogSingleContent";
+const blogsingle = () => {
     return (
         <div>
             <BlogSingleHeader />
-            <BlogSingleContent post={post}/>
+            <BlogSingleContent/>
         </div>
     );
 };

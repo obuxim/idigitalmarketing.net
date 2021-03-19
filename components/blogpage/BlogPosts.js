@@ -1,5 +1,6 @@
-const BlogPosts = ({posts}) => {
-    console.log(posts)
+import posts from './posts';
+
+const BlogPosts = () => {
     return (
         <div>
             {posts ? posts.map(post => 
