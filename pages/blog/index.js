@@ -5,7 +5,7 @@ import BlogHeader from "../../components/blogpage/BlogHeader";
 
 const fetchData = async () =>
   await axios
-    .get("")
+    .get("http://dmlms.wpengine.com/wp-json/wp/v2/posts")
     .then((res) => ({
       error: false,
       posts: res.data,
