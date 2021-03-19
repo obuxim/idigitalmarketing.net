@@ -1,7 +1,6 @@
 import React from 'react';
-
-const Courses = ({courses}) => {
-    console.log(courses)
+import courseContnet  from './courseContent';
+const Courses = () => {
     return (
     <section className="space-ptb course-details">
         <div className="container">
@@ -91,7 +90,7 @@ const Courses = ({courses}) => {
             <div className="col-lg-8 mt-5 mt-lg-0">
             <div className="row mb-4">
                 <div className="col-12">
-                <h6 className="mb-0">Showing 1-5 of <span className="text-primary">{courses && courses.length} course</span></h6>
+                <h6 className="mb-0">Showing 1-5 of <span className="text-primary">{courseContnet && courseContnet.length} course</span></h6>
                 </div>
             </div>
             <div className="course-filter d-sm-flex mb-4">
@@ -144,7 +143,7 @@ const Courses = ({courses}) => {
                 </ul>
             </div>
             <div className="row">
-                {courses && courses.map(course => {
+                {courseContnet && courseContnet.map(course => {
                     <div key={course.id} className="col-sm-6 mb-4 pb-2">
                         <div className="course">
                             <div className="course-img">

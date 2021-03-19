@@ -2,7 +2,7 @@ import React from 'react';
 
 const CourseDetailsSidebar = () => {
     return (
-<div className="widgets">
+            <div className="widgets">
                     <div className="widget widget-price">
                         <h6 className="widget-title">Price</h6>
                         <div className="widget-content">
