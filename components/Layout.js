@@ -10,7 +10,6 @@ import Header2 from "./Header2";
 const Layout = ({ children }) => {
     const router = useRouter();
 	const currentRouter = router.pathname;
-    console.log(currentRouter);
 	return (
 		<div>
 			<Head>
