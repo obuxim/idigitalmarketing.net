@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
+import {CartContext} from './../context/CartContext';
 
 const cartProducts = [
     {
@@ -26,12 +27,11 @@ const cartProducts = [
 ];
 
 const CustomCart = () => {
-    const { register, handleSubmit, watch, errors } = useForm();
-    const[cartData, setCartData] = useState();
-    
+    const { register, handleSubmit, watch, errors } = useForm();    
+    const [cartData, setCartData] = useContext(CartContext);
+
     const onSubmit = data => {
         setCartData(data);
-        console.log(data);
     };
 
     const[cardform, setCardForm] = useState(false);

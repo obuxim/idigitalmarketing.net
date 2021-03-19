@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CustomCart from '../components/customCart/CustomCart';
 
 const customCart = () => {
@@ -20,7 +20,6 @@ const customCart = () => {
                 </div>
             </section>
             <CustomCart />
-            
         </div>
     );
 };
