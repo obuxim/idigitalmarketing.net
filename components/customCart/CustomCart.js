@@ -55,6 +55,11 @@ const CustomCart = () => {
         const newItems = prevItems.filter(item => item.id !== parseInt(itemId));
         setCartItems(newItems);
     };
+    
+    const handleCouponCode = (e) => {
+        console.log(e)
+    }
+
     const vatPrice = cartItems.length > 0 ? 50.00 : 0.00;
 
     const totalAmount = subTotal + vatPrice;
@@ -262,7 +267,21 @@ const CustomCart = () => {
                                     <ul className="totalAmount">
                                         <li><b>Subtotal</b> <b className="amounts">{subTotal.toFixed(2)}</b></li>
                                         <li><b>Vat</b> <b className="amounts">{vatPrice.toFixed(2)}</b></li>
-                                        <li><b>Total</b> <b className="amounts"><input className="form-control" defaultValue={totalAmount.toFixed(2)} id="totalamount" name="totalamount" type="text" ref={register} /></b></li>
+                                        <li><b>Total</b> 
+                                            <b className="amounts">
+                                                <input className="form-control customdesiablleform" defaultValue={totalAmount.toFixed(2)} id="totalamount"  readOnly name="totalamount" type="text" ref={register} />
+                                            </b>
+                                        </li>
+                                        <li className="couponCode">
+                                            <div className="coupon col-sm-12">
+                                                <form className="form-inline" _lpchecked="1">
+                                                    <div className="form-group">
+                                                        <input type="text" id="coupon_code" name="coupon_code" className="form-control" value="" placeholder="Coupon code" />
+                                                    </div>
+                                                    <button type="submit" onClick={handleCouponCode} className="btn btn-primary">Apply coupon</button>
+                                                </form>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
