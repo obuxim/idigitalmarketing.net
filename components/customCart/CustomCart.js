@@ -2,6 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import {CartContext} from './../context/CartContext';
 import { PayPalButton } from "react-paypal-button-v2";
+import {
+    useStripe,
+    useElements,
+    CardNumberElement,
+    CardCvcElement,
+    CardExpiryElement
+  } from "@stripe/react-stripe-js";
 
 const cartProducts = [
     {
@@ -30,15 +37,18 @@ const cartProducts = [
 const CustomCart = () => {
     const { register, handleSubmit, watch, errors } = useForm();    
     const [cartData, setCartData] = useContext(CartContext);
-
+    
     const onSubmit = data => {
         setCartData(data);
     };
-
+    
     const[cardform, setCardForm] = useState(false);
     const[billingForm, setBillingForm] = useState(false);
     const [cartItems, setCartItems] = useState(cartProducts);
 
+    // paypal
+    const [sdkReady, setSdkReady] = useState(false);
+    
     const handlePaymentClick = () => {
         setCardForm(!cardform);
     }
@@ -60,8 +70,7 @@ const CustomCart = () => {
 
     const totalAmount = subTotal + vatPrice;
 
-
-    const [sdkReady, setSdkReady] = useState(false);
+    // paypal
 
     useEffect(() => {
         const addPayPalScript = async () => {
@@ -81,7 +90,28 @@ const CustomCart = () => {
         const successPaymentHandler = (paymentResult) => {
             console.log(paymentResult)
             // TODO:: need to pass order id and payment result to action
-          }
+        }
+
+        // stripe 
+
+        const stripe = useStripe();
+        const elements = useElements();
+
+        const handleStripeSubmit = async (event) => {
+            event.preventDefault();
+        
+            if (!stripe || !elements) {
+              // Stripe.js has not loaded yet. Make sure to disable
+              // form submission until Stripe.js has loaded.
+              return;
+            }
+        
+            const payload = await stripe.createPaymentMethod({
+              type: "card",
+              card: elements.getElement(CardNumberElement)
+            });
+            console.log("[PaymentMethod]", payload);
+        };
 
     return (
         <>
@@ -108,7 +138,8 @@ const CustomCart = () => {
                 <p className="slsupport">If you face any issues please contact support <b>+120 3890 6420</b></p>
             </div>
             <section className="cartBody">
-                <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
+                {/* <form onSubmit={handleSubmit(onSubmit)} className="contact-form"> */}
+                <form onSubmit={handleStripeSubmit} className="contact-form">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-7">
@@ -174,31 +205,49 @@ const CustomCart = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-group">
                                                             <label htmlFor="">Card Number</label>
-                                                            <input className="form-control" id="fname" name="fname" placeholder="Enter your card number" type="text" ref={register} />
-                                                            <span className="alert-error" />
+                                                            {/* <input className="form-control" id="fname" name="fname" placeholder="Enter your card number" type="text" ref={register} />
+                                                            <span className="alert-error" /> */}
+                                                            <CardNumberElement
+                                                                className="form-control"
+                                                                onChange={(event) => {
+                                                                    console.log("CardNumberElement [change]", event);
+                                                                }}
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-group">
                                                             <label htmlFor="">Expiration Date</label>
-                                                            <input className="form-control" id="expire" name="expire" placeholder="Expire date" type="text" ref={register} />
-                                                            <span className="alert-error" />
+                                                            {/* <input className="form-control" id="expire" name="expire" placeholder="Expire date" type="text" ref={register} />
+                                                            <span className="alert-error" /> */}
+                                                            <CardExpiryElement
+                                                                className="form-control"
+                                                                onChange={(event) => {
+                                                                    console.log("CardNumberElement [change]", event);
+                                                                }}
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-group">
                                                             <label htmlFor="">Security</label>
-                                                            <input className="form-control" id="security" name="security" placeholder="CVV" type="security" ref={register} />
-                                                            <span className="alert-error" />
+                                                            {/* <input className="form-control" id="security" name="security" placeholder="CVV" type="security" ref={register} />
+                                                            <span className="alert-error" /> */}
+                                                            <CardCvcElement
+                                                                className="form-control"
+                                                                onChange={(event) => {
+                                                                    console.log("CardNumberElement [change]", event);
+                                                                }}
+                                                            />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12">
+                                                    {/* <div className="col-md-12">
                                                         <div className="form-group">
                                                             <label htmlFor="">Card Name</label>
                                                             <input className="form-control" id="cname" name="cname" placeholder="Enter Card name" type="text" ref={register} />
                                                             <span className="alert-error" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>}
 
@@ -271,7 +320,10 @@ const CustomCart = () => {
 
                                         <div className="row">
                                             <div className="col-lg-12">
-                                                <button type="submit" name="submit" className="btn btn-block btn-primary" id="submit" onClick={handleSubmit(onSubmit)}>
+                                                {/* <button type="submit" name="submit" className="btn btn-block btn-primary" id="submit" onClick={handleSubmit(onSubmit)}>
+                                                    Checkout and Pay 
+                                                </button> */}
+                                                <button type="submit" name="submit" className="btn btn-block btn-primary" id="submit">
                                                     Checkout and Pay 
                                                 </button>
                                             </div>
