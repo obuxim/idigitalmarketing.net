@@ -10,8 +10,6 @@ import {
   } from "@stripe/react-stripe-js";
 import { CartContext } from '../context/CartContext/CartState';
 
-
-
 const CustomCart = () => {
     const { register, handleSubmit, watch, errors } = useForm(); 
     
@@ -30,30 +28,23 @@ const CustomCart = () => {
 
     // paypal
     const [sdkReady, setSdkReady] = useState(false);
-    
     const handlePaymentClick = () => {
         setCardForm(!cardform);
     }
     const handleBillingForm = () => {
         setBillingForm(!billingForm);
     }
-
     const subTotal = cartItemInfo.reduce((sum, cur) =>
         sum + (cur.product_price).toFixed(2) * cur.quantity, 0
     );
-
     const handleCartDelete = e => {
         const itemId = e.target.id;
-
         removerCart(itemId)
     };
-    
     const handleCouponCode = () => {
         console.log(coupnCode)
     }
-
     const vatPrice = cartItemInfo.length > 0 ? 50.00 : 0.00;
-
     const totalAmount = subTotal + vatPrice;
 
     // paypal
@@ -79,19 +70,16 @@ const CustomCart = () => {
         }
 
         // stripe 
-
         const stripe = useStripe();
         const elements = useElements();
 
         const handleStripeSubmit = async (event) => {
             event.preventDefault();
-        
             if (!stripe || !elements) {
               // Stripe.js has not loaded yet. Make sure to disable
               // form submission until Stripe.js has loaded.
               return;
             }
-        
             const payload = await stripe.createPaymentMethod({
               type: "card",
               card: elements.getElement(CardNumberElement)
