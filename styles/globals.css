@@ -134,6 +134,9 @@ li b.amounts{
   width: 50%;
 }
 
+.payimg.cscursor{
+  cursor: pointer;
+}
 .payimg {
   background: #FFFFFF;
   border: 1px solid #D6D6D6;
@@ -141,7 +144,6 @@ li b.amounts{
   border-radius: 3px;
   margin: 4px 0;
   padding: 15px;
-  cursor: pointer;
 }
 
 .billingAdds {

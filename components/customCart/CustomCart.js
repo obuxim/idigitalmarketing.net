@@ -20,6 +20,7 @@ const CustomCart = () => {
     
     const onSubmit = data => {
         setCartData(data);
+        console.log()
     };
     
     const[cardform, setCardForm] = useState(false);
@@ -121,8 +122,8 @@ const CustomCart = () => {
                 <p className="slsupport">If you face any issues please contact support <b>+120 3890 6420</b></p>
             </div>
             <section className="cartBody">
-                {/* <form onSubmit={handleSubmit(onSubmit)} className="contact-form"> */}
-                <form onSubmit={handleStripeSubmit} className="contact-form">
+                <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
+                {/* <form onSubmit={handleStripeSubmit} className="contact-form"> */}
                     <div className="container">
                         <div className="row">
                             <div className="col-md-7">
@@ -176,14 +177,14 @@ const CustomCart = () => {
                                                 </div> 
                                                 : 
                                                 <div className="col-sm-12">
-                                                    <div className="payimg" onClick={handlePaymentClick}>
+                                                    <div className="payimg cscursor" onClick={handlePaymentClick}>
                                                         <h4>Bank Card</h4>
                                                         <p>Pay with Mastercard, Amex, Visa & Mastero</p>
                                                     </div>
                                                 </div>
                                             }
 
-                                            {cardform && <div className="col-lg-12 mt-3 mb-3">
+                                            {cardform && <div className="col-lg-12  mt-3 mb-3">
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="form-group">
@@ -345,7 +346,7 @@ const CustomCart = () => {
                                             <div className="coupon col-sm-12">
                                                 <form className="form-inline" _lpchecked="1">
                                                     <div className="form-group">
-                                                        <input type="text" id="coupon_code" name="coupon_code" className="form-control" value="" placeholder="Coupon code" />
+                                                        <input type="text" id="coupon_code" name="coupon_code" className="form-control" defaultValue="" placeholder="Coupon code" />
                                                     </div>
                                                     <button type="submit" onClick={handleCouponCode} className="btn btn-primary">Apply coupon</button>
                                                 </form>
