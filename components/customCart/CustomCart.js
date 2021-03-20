@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import {CartContext} from './../context/CartContext';
 import { PayPalButton } from "react-paypal-button-v2";
 import {
     useStripe,
@@ -9,34 +8,15 @@ import {
     CardCvcElement,
     CardExpiryElement
   } from "@stripe/react-stripe-js";
+import { CartContext } from '../context/CartContext/CartState';
 
-const cartProducts = [
-    {
-        id: 1,
-        title: 'Ultimate Photography Bundle',
-        thumb: 'images/shop/01.jpg',
-        quantity: 1,
-        itemPrice: 425.50,
-    },
-    {
-        id: 2,
-        title: 'Ultimate Photography Bundle',
-        thumb: 'images/shop/01.jpg',
-        quantity: 1,
-        itemPrice: 425.00,
-    },
-    {
-        id: 3,
-        title: 'Ultimate Photography Bundle',
-        thumb: 'images/shop/01.jpg',
-        quantity: 2,
-        itemPrice: 425.05,
-    }
-];
+
 
 const CustomCart = () => {
-    const { register, handleSubmit, watch, errors } = useForm();    
-    const [cartData, setCartData] = useContext(CartContext);
+    const { register, handleSubmit, watch, errors } = useForm();   
+
+    // New Cart
+    const {cartItemInfo, removerCart} = useContext(CartContext)
     
     const onSubmit = data => {
         setCartData(data);
@@ -44,7 +24,6 @@ const CustomCart = () => {
     
     const[cardform, setCardForm] = useState(false);
     const[billingForm, setBillingForm] = useState(false);
-    const [cartItems, setCartItems] = useState(cartProducts);
 
     // paypal
     const [sdkReady, setSdkReady] = useState(false);
@@ -56,17 +35,16 @@ const CustomCart = () => {
         setBillingForm(!billingForm);
     }
 
-    const subTotal = cartItems.reduce((sum, cur) =>
+    const subTotal = cartItemInfo.reduce((sum, cur) =>
         sum + (cur.itemPrice).toFixed(2) * cur.quantity, 0
     );
 
     const handleCartDelete = e => {
         const itemId = e.target.id;
-        const prevItems = [...cartItems];
-        const newItems = prevItems.filter(item => item.id !== parseInt(itemId));
-        setCartItems(newItems);
+
+        removerCart(itemId)
     };
-    const vatPrice = cartItems.length > 0 ? 50.00 : 0.00;
+    const vatPrice = cartItemInfo.length > 0 ? 50.00 : 0.00;
 
     const totalAmount = subTotal + vatPrice;
 
@@ -336,7 +314,7 @@ const CustomCart = () => {
                                 <div className="orderItems">
                                     <h4>Your Orders</h4>
                                     <ul className="items">
-                                        {cartItems.length > 0 ? cartItems.map((item) => 
+                                        {cartItemInfo.length > 0 ? cartItemInfo.map((item) => 
                                             <li key={item.id}>
                                                 <div className="itemImg">
                                                     <img src={item.thumb} alt="" className="img-fluid img-responsive"/>
