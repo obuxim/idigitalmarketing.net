@@ -41,7 +41,6 @@ export const CartProvider = ({ children }) => {
 
     // Actions
     async function addToCart(id){
-        console.log(id);
         const config = {
             headers: {
                 'Content-Type': 'application/json',

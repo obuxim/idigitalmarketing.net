@@ -1,5 +1,4 @@
 export default (state, action) => {
-    console.log(state.cartItems);
     switch (action.type) {
         case 'CART_ADD_ITEM':
             const item = action.payload
@@ -23,7 +22,7 @@ export default (state, action) => {
                 const id = action.payload
                 return {
                   ...state,
-                  cartItems: state.cartItems.filter((x) => x.id !== parseInt(id)),
+                  cartItems: state.cartItems.filter((x) => x.product_id !== parseInt(id)),
                 }
         default:
             return state;
