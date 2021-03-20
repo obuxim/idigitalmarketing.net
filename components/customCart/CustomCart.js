@@ -16,7 +16,7 @@ const CustomCart = () => {
     const { register, handleSubmit, watch, errors } = useForm();   
 
     // New Cart
-    const {cartItemInfo, removerCart} = useContext(CartContext)
+    const {addToCart, cartItemInfo, removerCart} = useContext(CartContext)
     
     const onSubmit = data => {
         setCartData(data);
@@ -37,7 +37,7 @@ const CustomCart = () => {
     }
 
     const subTotal = cartItemInfo.reduce((sum, cur) =>
-        sum + (cur.itemPrice).toFixed(2) * cur.quantity, 0
+        sum + (cur.product_price).toFixed(2) * cur.quantity, 0
     );
 
     const handleCartDelete = e => {
@@ -321,15 +321,15 @@ const CustomCart = () => {
                                     <h4>Your Orders</h4>
                                     <ul className="items">
                                         {cartItemInfo.length > 0 ? cartItemInfo.map((item) => 
-                                            <li key={item.id}>
+                                            <li key={item.product_id}>
                                                 <div className="itemImg">
                                                     <img src={item.thumb} alt="" className="img-fluid img-responsive"/>
                                                 </div>
                                                 <div className="contents">
-                                                    <h5>{item.title}</h5>
-                                                    <p><span>{item.itemPrice}  x {item.quantity}</span> <b>£{(item.itemPrice * item.quantity).toFixed(2)}</b></p>
+                                                    <h5>{item.product_title}</h5>
+                                                    <p><span>{item.product_price}  x {item.quantity}</span> <b>£{(item.product_price * item.quantity).toFixed(2)}</b></p>
                                                 </div>
-                                                <i className="far fa-trash-alt" id={item.id} onClick={handleCartDelete}></i>
+                                                <i className="far fa-trash-alt" id={item.product_id} onClick={handleCartDelete}></i>
                                             </li>
                                         ) : <p>No Item Found</p>}
                                     </ul>

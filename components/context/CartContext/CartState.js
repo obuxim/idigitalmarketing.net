@@ -1,26 +1,28 @@
+import axios from 'axios';
 import React, { createContext, useReducer } from 'react';
+import { key } from '../../../apiKey';
 import CartReducer from './CartReducer';
 const cartProducts = [
     {
-        id: 1,
-        title: 'Ultimate Photography Bundle',
+        product_id: 1,
+        product_title: 'Ultimate Photography Bundle',
         thumb: 'images/shop/01.jpg',
         quantity: 1,
-        itemPrice: 425.50,
+        product_price: 425.50,
     },
     {
-        id: 2,
-        title: 'Ultimate Photography Bundle',
+        product_id: 2,
+        product_title: 'Ultimate Photography Bundle',
         thumb: 'images/shop/01.jpg',
         quantity: 1,
-        itemPrice: 425.00,
+        product_price: 425.00,
     },
     {
-        id: 3,
-        title: 'Ultimate Photography Bundle',
+        product_id: 3,
+        product_title: 'Ultimate Photography Bundle',
         thumb: 'images/shop/01.jpg',
         quantity: 2,
-        itemPrice: 425.05,
+        product_price: 425.05,
     }
 ];
 
@@ -38,20 +40,34 @@ export const CartProvider = ({ children }) => {
     const [state, dispatch] = useReducer(CartReducer, initialState);
 
     // Actions
-    async function addToCart(id, qty){
-        // const { data } = await axios.get(`/api/products/${id}`)
-      
-        dispatch({
-          type: 'CART_ADD_ITEM',
-          payload: {
-            product: data._id,
-            name: data.name,
-            image: data.image,
-            price: data.price,
-            countInStock: data.countInStock,
-            qty,
-          },
-        })
+    async function addToCart(id){
+        console.log(id);
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        // const { data } = await axios.post(`${key}add-item`, 540, config)
+        await axios.post('http://financelms.wpengine.com/wp-json/cocart/v1/add-item/',  { product_id : id } , config)
+            .then(res => {
+                dispatch({
+                    type: 'CART_ADD_ITEM',
+                        payload: {
+                            product_id: res.data.product_id,
+                            quantity: res.data.quantity,
+                            product_name: res.data.product_name,
+                            product_title: res.data.product_title,
+                            countInStock: res.data.countInStock,
+                            product_price: res.data.product_price,
+                        },
+                    })
+            })
+            .catch(error => {
+                console.log(error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message);
+            })
       
         // localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
       }
