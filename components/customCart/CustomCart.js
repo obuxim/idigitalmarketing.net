@@ -1,13 +1,10 @@
+import {
+    CardCvcElement,
+    CardExpiryElement, CardNumberElement, useElements, useStripe
+} from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { PayPalButton } from "react-paypal-button-v2";
-import {
-    useStripe,
-    useElements,
-    CardNumberElement,
-    CardCvcElement,
-    CardExpiryElement
-  } from "@stripe/react-stripe-js";
 import { CartContext } from '../context/CartContext/CartState';
 
 const CustomCart = () => {
@@ -19,8 +16,19 @@ const CustomCart = () => {
     // New Cart
     const {addToCart, cartItemInfo, removerCart} = useContext(CartContext)
     
-    const onSubmit = (data) => {
+    const onSubmit = async (data, event) => {
         console.log(data);
+        event.preventDefault();
+        if (!stripe || !elements) {
+            // Stripe.js has not loaded yet. Make sure to disable
+            // form submission until Stripe.js has loaded.
+            return;
+        }
+        const payload = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardNumberElement)
+        });
+        console.log("[PaymentMethod]", payload);
     };
     
     const[cardform, setCardForm] = useState(false);
@@ -59,9 +67,9 @@ const CustomCart = () => {
                 script.onload = () => {
                     setSdkReady(true);
                 };
-             document.body.appendChild(script);
+                document.body.appendChild(script);
             };
-
+            addPayPalScript()
         }, []);
 
         const successPaymentHandler = (paymentResult) => {

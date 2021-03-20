@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { createContext, useReducer } from 'react';
-import { key } from '../../../apiKey';
 import CartReducer from './CartReducer';
 const cartProducts = [
     {
@@ -81,6 +80,47 @@ export const CartProvider = ({ children }) => {
       
         // localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
       }
+
+
+    async function payOrder(orderId, paymentResult) {
+        try {
+            dispatch({
+                type: 'ORDER_PAY_REQUEST',
+            })
+
+            // TODO :: logged in user details
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Authorization: `Bearer ${userInfo.token}`,
+                },
+            }
+
+            const { data } = await axios.put(
+                `/api/orders/${orderId}/pay`,
+                paymentResult,
+                config
+            )
+
+            dispatch({
+                type: 'ORDER_PAY_SUCCESS',
+                payload: data,
+            })
+        } catch (error) {
+            const message =
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            if (message === 'Not authorized, token failed') {
+                dispatch(logout())
+            }
+            dispatch({
+                type: 'ORDER_PAY_FAIL',
+                payload: message,
+            })
+        }
+    }
 
     return (
         <CartContext.Provider
