@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import {CartContext} from './../context/CartContext';
+import { PayPalButton } from "react-paypal-button-v2";
 
 const cartProducts = [
     {
@@ -58,6 +59,29 @@ const CustomCart = () => {
     const vatPrice = cartItems.length > 0 ? 50.00 : 0.00;
 
     const totalAmount = subTotal + vatPrice;
+
+
+    const [sdkReady, setSdkReady] = useState(false);
+
+    useEffect(() => {
+        const addPayPalScript = async () => {
+            // const { data: clientId } = await Axios.get('/api/config/paypal')
+                const script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = `https://www.paypal.com/sdk/js?client-id=ARnuILaZL7b-osDpufmbAit_JY2GAIkO9K_UwH3ZSoyeOlIiE4VZ8TqdFDv8i1k05UvOnhPPi72nAp5a`;
+                script.async = true;
+                script.onload = () => {
+                    setSdkReady(true);
+                };
+             document.body.appendChild(script);
+            };
+
+        }, []);
+
+        const successPaymentHandler = (paymentResult) => {
+            console.log(paymentResult)
+            // TODO:: need to pass order id and payment result to action
+          }
 
     return (
         <>
@@ -182,6 +206,21 @@ const CustomCart = () => {
                                                 <div className="payimg">
                                                     <h4>Paypal</h4>
                                                     <p>Simple & Secure to pay</p>
+                                                    {/* {!sdkReady ? (
+                                                        // TODO:: Loader/Spinner goes there
+                                                        ''
+                                                        ) : (
+                                                        <PayPalButton
+                                                            // amount will be depends on student's order. E => amount={order.totalPrice}
+                                                            amount="100"
+                                                            onSuccess={successPaymentHandler}
+                                                        />
+                                                    )} */}
+                                                    <PayPalButton
+                                                        // amount will be depends on student's order. E => amount={order.totalPrice}
+                                                        amount="100"
+                                                        onSuccess={successPaymentHandler}
+                                                    />
                                                 </div>
                                             </div>
 
