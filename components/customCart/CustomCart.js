@@ -13,14 +13,16 @@ import { CartContext } from '../context/CartContext/CartState';
 
 
 const CustomCart = () => {
-    const { register, handleSubmit, watch, errors } = useForm();   
+    const { register, handleSubmit, watch, errors } = useForm(); 
+    
+    const[coupnCode, setCouponCode] = useState('coupoin46');
+    const[cartData, setCartData] = ([]);
 
     // New Cart
     const {cartItemInfo, removerCart} = useContext(CartContext)
     
-    const onSubmit = data => {
-        setCartData(data);
-        console.log()
+    const onSubmit = (data) => {
+        console.log(data);
     };
     
     const[cardform, setCardForm] = useState(false);
@@ -46,8 +48,8 @@ const CustomCart = () => {
         removerCart(itemId)
     };
     
-    const handleCouponCode = (e) => {
-        console.log(e)
+    const handleCouponCode = () => {
+        console.log(coupnCode)
     }
 
     const vatPrice = cartItemInfo.length > 0 ? 50.00 : 0.00;
@@ -344,12 +346,12 @@ const CustomCart = () => {
                                         </li>
                                         <li className="couponCode">
                                             <div className="coupon col-sm-12">
-                                                <form className="form-inline" _lpchecked="1">
+                                                <div className="form-inline" _lpchecked="1">
                                                     <div className="form-group">
-                                                        <input type="text" id="coupon_code" name="coupon_code" className="form-control" defaultValue="" placeholder="Coupon code" />
+                                                        <input type="text" id="coupon_code" name="coupon_code" className="form-control" placeholder="Coupon code" />
                                                     </div>
-                                                    <button type="submit" onClick={handleCouponCode} className="btn btn-primary">Apply coupon</button>
-                                                </form>
+                                                    <button onClick={handleCouponCode} className="btn btn-primary">Apply coupon</button>
+                                                </div>
                                             </div>
                                         </li>
                                     </ul>
