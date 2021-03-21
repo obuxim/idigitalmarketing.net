@@ -8,17 +8,18 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { CartContext } from '../context/CartContext/CartState';
 
 const CustomCart = () => {
+    const { cartItemInfo, removerCart, payOrder, billingDetails} = useContext(CartContext)
+    const [paypalPay, setPaypalPay] = useState('')
+    const [stripePay, setStripePay] = useState('')
+    
     const { register, handleSubmit, watch, errors } = useForm(); 
     
     const[coupnCode, setCouponCode] = useState('coupoin46');
     const[cartData, setCartData] = ([]);
-
-    // New Cart
-    const {addToCart, cartItemInfo, removerCart} = useContext(CartContext)
     
     const onSubmit = async (data, event) => {
-        console.log(data);
         event.preventDefault();
+        billingDetails(data)
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
@@ -28,7 +29,9 @@ const CustomCart = () => {
             type: "card",
             card: elements.getElement(CardNumberElement)
         });
-        console.log("[PaymentMethod]", payload);
+        setStripePay(payload)
+        
+        // payOrder()
     };
     
     const[cardform, setCardForm] = useState(false);
@@ -73,8 +76,7 @@ const CustomCart = () => {
         }, []);
 
         const successPaymentHandler = (paymentResult) => {
-            console.log(paymentResult)
-            // TODO:: need to pass order id and payment result to action
+            setPaypalPay(paymentResult)
         }
 
         // stripe 
@@ -83,17 +85,25 @@ const CustomCart = () => {
 
         const handleStripeSubmit = async (event) => {
             event.preventDefault();
-            if (!stripe || !elements) {
-              // Stripe.js has not loaded yet. Make sure to disable
-              // form submission until Stripe.js has loaded.
-              return;
-            }
-            const payload = await stripe.createPaymentMethod({
-              type: "card",
-              card: elements.getElement(CardNumberElement)
-            });
-            console.log("[PaymentMethod]", payload);
+           if(cardform) {
+               if (!stripe || !elements) {
+                   return;
+               }
+               const payload = await stripe.createPaymentMethod({
+                   type: "card",
+                   card: elements.getElement(CardNumberElement)
+               });
+           }
         };
+
+    useEffect(() => {
+        if (paypalPay) {
+            payOrder(paypalPay)
+        }
+        if (stripePay) {
+            payOrder(stripePay)
+        }
+    }, [paypalPay, stripePay])
 
     return (
         <>
@@ -249,7 +259,7 @@ const CustomCart = () => {
                                                     )} */}
                                                     <PayPalButton
                                                         // amount will be depends on student's order. E => amount={order.totalPrice}
-                                                        amount="100"
+                                                        amount={totalAmount}
                                                         onSuccess={successPaymentHandler}
                                                     />
                                                 </div>

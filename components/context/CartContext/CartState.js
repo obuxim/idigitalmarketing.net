@@ -28,7 +28,9 @@ const cartProducts = [
 // Initial state
 const initialState = {
     cart: [],
-    cartItems: [...cartProducts]
+    cartItems: [...cartProducts],
+    paymentInfo: {},
+    billingDetails: {}
 };
 
 // Create context
@@ -72,7 +74,6 @@ export const CartProvider = ({ children }) => {
 
       async function removerCart(id){
         // const { data } = await axios.get(`/api/products/${id}`)
-         console.log(id);
         dispatch({
             type: 'CART_REMOVE_ITEM',
             payload: id,
@@ -82,44 +83,17 @@ export const CartProvider = ({ children }) => {
       }
 
 
-    async function payOrder(orderId, paymentResult) {
-        try {
-            dispatch({
-                type: 'ORDER_PAY_REQUEST',
-            })
-
-            // TODO :: logged in user details
-
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Authorization: `Bearer ${userInfo.token}`,
-                },
-            }
-
-            const { data } = await axios.put(
-                `/api/orders/${orderId}/pay`,
-                paymentResult,
-                config
-            )
-
-            dispatch({
-                type: 'ORDER_PAY_SUCCESS',
-                payload: data,
-            })
-        } catch (error) {
-            const message =
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message
-            if (message === 'Not authorized, token failed') {
-                dispatch(logout())
-            }
-            dispatch({
-                type: 'ORDER_PAY_FAIL',
-                payload: message,
-            })
-        }
+    async function payOrder(paymentResult) {
+        dispatch({
+            type: 'ORDER_PAY_SUCCESS',
+            payload: paymentResult
+        })
+    }
+    async function billingDetails(billingInfo) {
+        dispatch({
+            type: 'BILLING_DETAILS_SUCCESS',
+            payload: billingInfo
+        })
     }
 
     return (
@@ -128,7 +102,9 @@ export const CartProvider = ({ children }) => {
                 cart: state.cart,
                 addToCart,
                 removerCart,
-                cartItemInfo: state.cartItems
+                cartItemInfo: state.cartItems,
+                payOrder,
+                billingDetails
             }}
         >
             {children}
