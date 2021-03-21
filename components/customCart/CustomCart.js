@@ -5,13 +5,23 @@ import {
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { PayPalButton } from "react-paypal-button-v2";
+import { AuthContext } from "../context/AuthContext/AuthState";
 import { CartContext } from '../context/CartContext/CartState';
 
 const CustomCart = () => {
     const { cartItemInfo, removerCart, payOrder, billingDetails} = useContext(CartContext)
+    const { userLogin, userRegistration} = useContext(AuthContext)
     const [paypalPay, setPaypalPay] = useState('')
     const [stripePay, setStripePay] = useState('')
-    
+
+    const [userName, setUserName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    // const handleRegister = () => {
+        
+    // }
+    console.log(userName, email, password);
     const { register, handleSubmit, watch, errors } = useForm(); 
     
     const[coupnCode, setCouponCode] = useState('coupoin46');
@@ -19,6 +29,7 @@ const CustomCart = () => {
     
     const onSubmit = async (data, event) => {
         event.preventDefault();
+        userRegistration(userName,email,password)
         billingDetails(data)
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
@@ -141,32 +152,32 @@ const CustomCart = () => {
                                             <div className="col-sm-12">
                                                 <h4>Account Information</h4>
                                             </div>
-                                            <div className="col-md-6">
+                                            <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="">First Name</label>
-                                                    <input className="form-control" id="fname" name="fname" placeholder="First Name" type="text" ref={register} />
+                                                    <label htmlFor=""> Full Name</label>
+                                                    <input className="form-control" id="fname" name="fname" placeholder="Full Name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
                                                     <span className="alert-error" />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Last Name</label>
                                                     <input className="form-control" id="lname" name="lname" placeholder="Last Name" type="text" ref={register} />
                                                     <span className="alert-error" />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Email</label>
-                                                    <input className="form-control" id="email" name="email" placeholder="Enter email" type="email" ref={register} />
+                                                    <input className="form-control" id="email" name="email" placeholder="Enter email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     <span className="alert-error" />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Set Password</label>
-                                                    <input className="form-control" id="password" name="password" placeholder="Enter Password" type="password" ref={register} />
-                                                    <span className="alert-error" />
+                                                    <input className="form-control" id="password" name="password" placeholder="Enter Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                                    <span w="alert-error" />
                                                 </div>
                                             </div>
                                         </div>
