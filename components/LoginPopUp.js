@@ -26,11 +26,11 @@ const LoginPopUp = () => {
         }
     };
 
-    useEffect(() => {
-        if (user) {
-            router.push('/')
-        }
-    }, [user])
+    // useEffect(() => {
+    //     if (user) {
+    //         router.push('/')
+    //     }
+    // }, [user])
     
 
     

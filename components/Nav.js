@@ -1,6 +1,8 @@
 import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext/AuthState";
 
 const Nav = () => {
+	const { user, userLogOut } = useContext(AuthContext);
 	return (
 		<nav className="navbar navbar-static-top navbar-expand-lg px-3 px-md-5">
 			<div className="container-fluid position-relative px-0">
@@ -191,6 +193,7 @@ const Nav = () => {
 								data-target="#loginModal"
 								href="#"
 							>
+								
 								Hello sign in
 								<i className="fa fa-user pl-2 text-primary"></i>
 							</a>

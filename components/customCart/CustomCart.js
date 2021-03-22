@@ -10,7 +10,7 @@ import { CartContext } from '../context/CartContext/CartState';
 
 const CustomCart = () => {
     const { cartItemInfo, removerCart, payOrder, billingDetails} = useContext(CartContext)
-    const { userLogin, userRegistration} = useContext(AuthContext)
+    const { userLogin, userRegistration, user} = useContext(AuthContext)
     const [paypalPay, setPaypalPay] = useState('')
     const [stripePay, setStripePay] = useState('')
 
@@ -147,8 +147,8 @@ const CustomCart = () => {
                         <div className="row">
                             <div className="col-md-7">
                                 <div className="cartInfo">
-                                        
-                                        <div className="row">
+                                        { user === null ? 
+                                            <div className="row">
                                             <div className="col-sm-12">
                                                 <h4>Account Information</h4>
                                             </div>
@@ -159,13 +159,6 @@ const CustomCart = () => {
                                                     <span className="alert-error" />
                                                 </div>
                                             </div>
-                                            {/* <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label htmlFor="">Last Name</label>
-                                                    <input className="form-control" id="lname" name="lname" placeholder="Last Name" type="text" ref={register} />
-                                                    <span className="alert-error" />
-                                                </div>
-                                            </div> */}
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Email</label>
@@ -181,7 +174,11 @@ const CustomCart = () => {
                                                 </div>
                                             </div>
                                         </div>
-
+                                            :
+                                            <p> Logged in </p>
+                                        }
+                                        
+                                        
                                         <div className="row">
                                             <div className="col-sm-12">
                                                 <h4>Payment Options</h4>
