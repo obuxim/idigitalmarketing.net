@@ -5,7 +5,6 @@ import { AuthContext } from './context/AuthContext/AuthState';
 const LoginPopUp = () => {
     const router = useRouter()
     const { userLogin, error, user, loading, userRegistration, successMessage } = useContext(AuthContext)
-    console.log(userLogin);
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -45,7 +45,6 @@ const CustomCart = () => {
         
         // payOrder()
     };
-    console.log(user)
     const[cardform, setCardForm] = useState(false);
     const[paypalForm, setPaypalForm] = useState(false);
     const[billingForm, setBillingForm] = useState(false);
@@ -278,6 +277,7 @@ const CustomCart = () => {
                                                         <PayPalButton
                                                             // amount will be depends on student's order. E => amount={order.totalPrice}
                                                             amount={totalAmount}
+                                                            // options={{enableFunding: "venmo"}}
                                                             onSuccess={successPaymentHandler}
                                                         />
                                                     </>
