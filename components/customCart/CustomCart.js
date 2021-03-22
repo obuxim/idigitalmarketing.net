@@ -63,7 +63,7 @@ const CustomCart = () => {
             // const { data: clientId } = await Axios.get('/api/config/paypal')
                 const script = document.createElement("script");
                 script.type = "text/javascript";
-                script.src = `https://www.paypal.com/sdk/js?client-id=ARnuILaZL7b-osDpufmbAit_JY2GAIkO9K_UwH3ZSoyeOlIiE4VZ8TqdFDv8i1k05UvOnhPPi72nAp5a`;
+                script.src = `https://www.paypal.com/sdk/js?client-id=pk_test_51HSKzyJVrjfkQTUYFrB0kWy9HsY5jXQDmLrfDpUppshNkrWK0QTCjW9HU5ZdCDWNUdx65qDb3rFESW0Hy07fDI3Z00bnU05LAN`;
                 script.async = true;
                 script.onload = () => {
                     setSdkReady(true);

@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
 	return (
 		<div>
 			<Head>
-				<meta charset="UTF-8" />
+				<meta charSet="UTF-8" />
 				<meta name="keywords" content="HTML5 Template" />
 				<meta
 					name="description"

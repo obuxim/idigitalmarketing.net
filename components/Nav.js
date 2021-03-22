@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 const Nav = () => {
 	return (
 		<nav className="navbar navbar-static-top navbar-expand-lg px-3 px-md-5">
