@@ -122,7 +122,7 @@ const CustomCart = () => {
         if (stripePay) {
             payOrder(stripePay)
         }
-    }, [paypalPay, stripePay])
+    }, [paypalPay, stripePay]);
 
     return (
         <>
@@ -155,7 +155,13 @@ const CustomCart = () => {
                         <div className="row">
                             <div className="col-md-7">
                                 <div className="cartInfo">
-                                        { user ? <h2>Logged as {user.user_display_name}</h2> : 
+                                        { user ? 
+                                            <div className="row">
+                                                <div className="col-sm-12">
+                                                    <h2>Logged as {user.user_display_name}</h2>
+                                                </div>
+                                            </div>
+                                            : 
                                             <div className="row">
                                                 <div className="col-sm-12">
                                                     <h4>Account Information</h4>
@@ -277,7 +283,6 @@ const CustomCart = () => {
                                                         <PayPalButton
                                                             // amount will be depends on student's order. E => amount={order.totalPrice}
                                                             amount={totalAmount}
-                                                            // options={{enableFunding: "venmo"}}
                                                             onSuccess={successPaymentHandler}
                                                         />
                                                     </>
