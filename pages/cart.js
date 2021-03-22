@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import CustomCart from '../components/customCart/CustomCart';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import React from 'react';
+import CustomCart from '../components/customCart/CustomCart';
 
 const customCart = () => {
     const stripePromise = loadStripe('pk_test_BPZRRegJm0Y8KuX7nBElSfpq00hLnSTszJ');

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { createContext, useReducer } from 'react';
-import { key } from '../../../apiKey';
 import CartReducer from './CartReducer';
 const cartProducts = [
     {
@@ -25,11 +24,19 @@ const cartProducts = [
         product_price: 425.05,
     }
 ];
+const ISSERVER = typeof window === 'undefined';
+// logged in user 
+const billingInfoFromStorage =
+    !ISSERVER && localStorage.getItem('billingInfo')
+        ? JSON.parse(localStorage.getItem('billingInfo'))
+        : null;
 
 // Initial state
 const initialState = {
     cart: [],
-    cartItems: [...cartProducts]
+    cartItems: [...cartProducts],
+    paymentInfo: {},
+    billingDetails: billingInfoFromStorage
 };
 
 // Create context
@@ -73,7 +80,6 @@ export const CartProvider = ({ children }) => {
 
       async function removerCart(id){
         // const { data } = await axios.get(`/api/products/${id}`)
-         console.log(id);
         dispatch({
             type: 'CART_REMOVE_ITEM',
             payload: id,
@@ -82,13 +88,30 @@ export const CartProvider = ({ children }) => {
         // localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
       }
 
+
+    async function payOrder(paymentResult) {
+        dispatch({
+            type: 'ORDER_PAY_SUCCESS',
+            payload: paymentResult
+        })
+    }
+    async function billingDetails(billingInfo) {
+        dispatch({
+            type: 'BILLING_DETAILS_SUCCESS',
+            payload: billingInfo
+        })
+        localStorage.setItem('billingInfow', JSON.stringify(billingInfo));
+    }
+
     return (
         <CartContext.Provider
             value={{
                 cart: state.cart,
                 addToCart,
                 removerCart,
-                cartItemInfo: state.cartItems
+                cartItemInfo: state.cartItems,
+                payOrder,
+                billingDetails
             }}
         >
             {children}

@@ -1,4 +1,5 @@
 export default (state, action) => {
+    console.log(state);
     switch (action.type) {
         case 'CART_ADD_ITEM':
             const item = action.payload
@@ -24,6 +25,10 @@ export default (state, action) => {
                   ...state,
                   cartItems: state.cartItems.filter((x) => x.product_id !== parseInt(id)),
                 }
+        case 'ORDER_PAY_SUCCESS':
+            return {...state, paymentInfo: action.payload }
+        case 'BILLING_DETAILS_SUCCESS':
+            return { ...state, billingDetails: action.payload }
         default:
             return state;
     }

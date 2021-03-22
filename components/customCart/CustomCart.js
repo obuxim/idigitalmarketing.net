@@ -1,28 +1,48 @@
+import {
+    CardCvcElement,
+    CardExpiryElement, CardNumberElement, useElements, useStripe
+} from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { PayPalButton } from "react-paypal-button-v2";
-import {
-    useStripe,
-    useElements,
-    CardNumberElement,
-    CardCvcElement,
-    CardExpiryElement
-  } from "@stripe/react-stripe-js";
+import { AuthContext } from "../context/AuthContext/AuthState";
 import { CartContext } from '../context/CartContext/CartState';
 
-
-
 const CustomCart = () => {
+    const { cartItemInfo, removerCart, payOrder, billingDetails} = useContext(CartContext)
+    const { userLogin, userRegistration} = useContext(AuthContext)
+    const [paypalPay, setPaypalPay] = useState('')
+    const [stripePay, setStripePay] = useState('')
+
+    const [userName, setUserName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    // const handleRegister = () => {
+        
+    // }
+    console.log(userName, email, password);
     const { register, handleSubmit, watch, errors } = useForm(); 
     
     const[coupnCode, setCouponCode] = useState('coupoin46');
     const[cartData, setCartData] = ([]);
-
-    // New Cart
-    const {addToCart, cartItemInfo, removerCart} = useContext(CartContext)
     
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data, event) => {
+        event.preventDefault();
+        userRegistration(userName,email,password)
+        billingDetails(data)
+        if (!stripe || !elements) {
+            // Stripe.js has not loaded yet. Make sure to disable
+            // form submission until Stripe.js has loaded.
+            return;
+        }
+        const payload = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardNumberElement)
+        });
+        setStripePay(payload)
+        
+        // payOrder()
     };
     
     const[cardform, setCardForm] = useState(false);
@@ -30,30 +50,23 @@ const CustomCart = () => {
 
     // paypal
     const [sdkReady, setSdkReady] = useState(false);
-    
     const handlePaymentClick = () => {
         setCardForm(!cardform);
     }
     const handleBillingForm = () => {
         setBillingForm(!billingForm);
     }
-
     const subTotal = cartItemInfo.reduce((sum, cur) =>
         sum + (cur.product_price).toFixed(2) * cur.quantity, 0
     );
-
     const handleCartDelete = e => {
         const itemId = e.target.id;
-
         removerCart(itemId)
     };
-    
     const handleCouponCode = () => {
         console.log(coupnCode)
     }
-
     const vatPrice = cartItemInfo.length > 0 ? 50.00 : 0.00;
-
     const totalAmount = subTotal + vatPrice;
 
     // paypal
@@ -68,36 +81,40 @@ const CustomCart = () => {
                 script.onload = () => {
                     setSdkReady(true);
                 };
-             document.body.appendChild(script);
+                document.body.appendChild(script);
             };
-
+            addPayPalScript()
         }, []);
 
         const successPaymentHandler = (paymentResult) => {
-            console.log(paymentResult)
-            // TODO:: need to pass order id and payment result to action
+            setPaypalPay(paymentResult)
         }
 
         // stripe 
-
         const stripe = useStripe();
         const elements = useElements();
 
         const handleStripeSubmit = async (event) => {
             event.preventDefault();
-        
-            if (!stripe || !elements) {
-              // Stripe.js has not loaded yet. Make sure to disable
-              // form submission until Stripe.js has loaded.
-              return;
-            }
-        
-            const payload = await stripe.createPaymentMethod({
-              type: "card",
-              card: elements.getElement(CardNumberElement)
-            });
-            console.log("[PaymentMethod]", payload);
+           if(cardform) {
+               if (!stripe || !elements) {
+                   return;
+               }
+               const payload = await stripe.createPaymentMethod({
+                   type: "card",
+                   card: elements.getElement(CardNumberElement)
+               });
+           }
         };
+
+    useEffect(() => {
+        if (paypalPay) {
+            payOrder(paypalPay)
+        }
+        if (stripePay) {
+            payOrder(stripePay)
+        }
+    }, [paypalPay, stripePay])
 
     return (
         <>
@@ -135,32 +152,32 @@ const CustomCart = () => {
                                             <div className="col-sm-12">
                                                 <h4>Account Information</h4>
                                             </div>
-                                            <div className="col-md-6">
+                                            <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="">First Name</label>
-                                                    <input className="form-control" id="fname" name="fname" placeholder="First Name" type="text" ref={register} />
+                                                    <label htmlFor=""> Full Name</label>
+                                                    <input className="form-control" id="fname" name="fname" placeholder="Full Name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
                                                     <span className="alert-error" />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Last Name</label>
                                                     <input className="form-control" id="lname" name="lname" placeholder="Last Name" type="text" ref={register} />
                                                     <span className="alert-error" />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Email</label>
-                                                    <input className="form-control" id="email" name="email" placeholder="Enter email" type="email" ref={register} />
+                                                    <input className="form-control" id="email" name="email" placeholder="Enter email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     <span className="alert-error" />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="">Set Password</label>
-                                                    <input className="form-control" id="password" name="password" placeholder="Enter Password" type="password" ref={register} />
-                                                    <span className="alert-error" />
+                                                    <input className="form-control" id="password" name="password" placeholder="Enter Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                                    <span w="alert-error" />
                                                 </div>
                                             </div>
                                         </div>
@@ -253,7 +270,7 @@ const CustomCart = () => {
                                                     )} */}
                                                     <PayPalButton
                                                         // amount will be depends on student's order. E => amount={order.totalPrice}
-                                                        amount="100"
+                                                        amount={totalAmount}
                                                         onSuccess={successPaymentHandler}
                                                     />
                                                 </div>
