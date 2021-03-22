@@ -24,13 +24,19 @@ const cartProducts = [
         product_price: 425.05,
     }
 ];
+const ISSERVER = typeof window === 'undefined';
+// logged in user 
+const billingInfoFromStorage =
+    !ISSERVER && localStorage.getItem('billingInfo')
+        ? JSON.parse(localStorage.getItem('billingInfo'))
+        : null;
 
 // Initial state
 const initialState = {
     cart: [],
     cartItems: [...cartProducts],
     paymentInfo: {},
-    billingDetails: {}
+    billingDetails: billingInfoFromStorage
 };
 
 // Create context
@@ -94,6 +100,7 @@ export const CartProvider = ({ children }) => {
             type: 'BILLING_DETAILS_SUCCESS',
             payload: billingInfo
         })
+        localStorage.setItem('billingInfow', JSON.stringify(billingInfo));
     }
 
     return (

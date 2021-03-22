@@ -158,6 +158,7 @@ export const AuthProvider = ({ children }) => {
             };
             await axios.post('http://financelms.wpengine.com/wp-json/wp/v2/users/register', { username, email, password }, config)
                 .then(res => {
+                    // userLogin(username, password)
                     dispatch({
                         type: 'USER_REGISTER_SUCCESS',
                         payload: res.data.message,
@@ -187,8 +188,8 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user: state.userInfo,
-                loggedInUser: state.userInfo && state.userInfo.loggedInUser,
                 userLogin,
+                loggedInUser: state.userInfo && state.userInfo.loggedInUser,
                 userRegistration,
                 userLogOut,
                 userValidation,
