@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext/AuthState";
+import Link from "next/link";
 
 const Nav = () => {
 	const { user, userLogOut } = useContext(AuthContext);
@@ -197,6 +198,15 @@ const Nav = () => {
 								Hello { user && user !== null ? `${user.user_display_name}` : 'Sing In' }
 								<i className="fa fa-user pl-2 text-primary"></i>
 							</a>
+						</li>
+						<li className="user">
+						{ user && user !== null && 
+							<Link href="#">
+							<li style = {{ cursor: 'pointer' }} onClick={userLogOut}>
+								<a> Logout </a>
+							</li>
+						</Link>
+						}
 						</li>
 						<li className="cart dropdown">
 							<button
