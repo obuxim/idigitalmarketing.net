@@ -36,7 +36,7 @@ const CustomCart = () => {
             // form submission until Stripe.js has loaded.
             return;
         }
-        const payload = await stripe.createPaymentMethod({
+        const {error ,payload } = await stripe.createPaymentMethod({
             type: "card",
             card: elements.getElement(CardNumberElement)
         });
@@ -76,7 +76,7 @@ const CustomCart = () => {
             // const { data: clientId } = await Axios.get('/api/config/paypal')
                 const script = document.createElement("script");
                 script.type = "text/javascript";
-                script.src = `https://www.paypal.com/sdk/js?client-id=pk_test_51HSKzyJVrjfkQTUYFrB0kWy9HsY5jXQDmLrfDpUppshNkrWK0QTCjW9HU5ZdCDWNUdx65qDb3rFESW0Hy07fDI3Z00bnU05LAN`;
+                script.src = `https://www.paypal.com/sdk/js?client-id=pk_test_BPZRRegJm0Y8KuX7nBElSfpq00hLnSTszJ`;
                 script.async = true;
                 script.onload = () => {
                     setSdkReady(true);

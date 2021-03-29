@@ -194,7 +194,7 @@ const Nav = () => {
 								href="#"
 							>
 								
-								Hello sign in
+								Hello { user && user !== null ? `${user.user_display_name}` : 'Sing In' }
 								<i className="fa fa-user pl-2 text-primary"></i>
 							</a>
 						</li>
