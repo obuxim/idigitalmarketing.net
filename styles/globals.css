@@ -157,6 +157,22 @@ li b.amounts{
   text-align: right;
 }
 
+.ct-border.paypaArea{
+  margin-bottom: 20px;
+}
 .ct-border {
   border: 1px solid #FF2A73;
+}
+@media (max-width: 767px) {
+  .checkoutHero .inner-body {
+    display: block;
+  }
+}
+
+.cartInfo .paypal-button.paypal-button-number-1 {
+  display: none !important;
+}
+
+.paypal-button-row .paypal-button.paypal-button-number-1 {
+  display: none !important;
 }
