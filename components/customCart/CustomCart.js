@@ -3,6 +3,7 @@ import {
     CardExpiryElement, CardNumberElement, useElements, useStripe
 } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from 'react';
+import { findDOMNode } from "react-dom";
 import { useForm } from "react-hook-form";
 import { PayPalButton } from "react-paypal-button-v2";
 import { AuthContext } from "../context/AuthContext/AuthState";
@@ -10,7 +11,7 @@ import { CartContext } from '../context/CartContext/CartState';
 
 const CustomCart = () => {
     const { cartItemInfo, removerCart, payOrder, billingDetails} = useContext(CartContext)
-    const { userLogin, userRegistration} = useContext(AuthContext)
+    const { userLogin, userRegistration, user} = useContext(AuthContext)
     const [paypalPay, setPaypalPay] = useState('')
     const [stripePay, setStripePay] = useState('')
 
@@ -36,7 +37,7 @@ const CustomCart = () => {
             // form submission until Stripe.js has loaded.
             return;
         }
-        const payload = await stripe.createPaymentMethod({
+        const {error ,payload } = await stripe.createPaymentMethod({
             type: "card",
             card: elements.getElement(CardNumberElement)
         });
@@ -44,14 +45,19 @@ const CustomCart = () => {
         
         // payOrder()
     };
-    
     const[cardform, setCardForm] = useState(false);
+    const[paypalForm, setPaypalForm] = useState(false);
     const[billingForm, setBillingForm] = useState(false);
 
     // paypal
     const [sdkReady, setSdkReady] = useState(false);
-    const handlePaymentClick = () => {
+
+    const handleCardPaymentClick = () => {
         setCardForm(!cardform);
+    }
+    const handlePaypalPaymentClick = (e) => {
+        
+        setPaypalForm(!paypalForm);
     }
     const handleBillingForm = () => {
         setBillingForm(!billingForm);
@@ -71,41 +77,43 @@ const CustomCart = () => {
 
     // paypal
 
+
+
     useEffect(() => {
         const addPayPalScript = async () => {
             // const { data: clientId } = await Axios.get('/api/config/paypal')
                 const script = document.createElement("script");
                 script.type = "text/javascript";
-                script.src = `https://www.paypal.com/sdk/js?client-id=ARnuILaZL7b-osDpufmbAit_JY2GAIkO9K_UwH3ZSoyeOlIiE4VZ8TqdFDv8i1k05UvOnhPPi72nAp5a`;
+                script.src = `https://www.paypal.com/sdk/js?client-id=pk_test_BPZRRegJm0Y8KuX7nBElSfpq00hLnSTszJ`;
                 script.async = true;
                 script.onload = () => {
                     setSdkReady(true);
                 };
                 document.body.appendChild(script);
             };
-            addPayPalScript()
-        }, []);
+            addPayPalScript();
+    }, []);
 
-        const successPaymentHandler = (paymentResult) => {
-            setPaypalPay(paymentResult)
+    const successPaymentHandler = (paymentResult) => {
+        setPaypalPay(paymentResult)
+    }
+
+    // stripe 
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const handleStripeSubmit = async (event) => {
+        event.preventDefault();
+        if(cardform) {
+            if (!stripe || !elements) {
+                return;
+            }
+            const payload = await stripe.createPaymentMethod({
+                type: "card",
+                card: elements.getElement(CardNumberElement)
+            });
         }
-
-        // stripe 
-        const stripe = useStripe();
-        const elements = useElements();
-
-        const handleStripeSubmit = async (event) => {
-            event.preventDefault();
-           if(cardform) {
-               if (!stripe || !elements) {
-                   return;
-               }
-               const payload = await stripe.createPaymentMethod({
-                   type: "card",
-                   card: elements.getElement(CardNumberElement)
-               });
-           }
-        };
+    };
 
     useEffect(() => {
         if (paypalPay) {
@@ -114,7 +122,7 @@ const CustomCart = () => {
         if (stripePay) {
             payOrder(stripePay)
         }
-    }, [paypalPay, stripePay])
+    }, [paypalPay, stripePay]);
 
     return (
         <>
@@ -147,41 +155,42 @@ const CustomCart = () => {
                         <div className="row">
                             <div className="col-md-7">
                                 <div className="cartInfo">
+                                        { user ? 
+                                            <div className="row">
+                                                <div className="col-sm-12">
+                                                    <h2>Logged as {user.user_display_name}</h2>
+                                                </div>
+                                            </div>
+                                            : 
+                                            <div className="row">
+                                                <div className="col-sm-12">
+                                                    <h4>Account Information</h4>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <label htmlFor=""> Full Name</label>
+                                                        <input className="form-control" id="fname" name="fname" placeholder="Full Name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                                                        <span className="alert-error" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="">Email</label>
+                                                        <input className="form-control" id="email" name="email" placeholder="Enter email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                        <span className="alert-error" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="">Set Password</label>
+                                                        <input className="form-control" id="password" name="password" placeholder="Enter Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                                        <span w="alert-error" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         } 
                                         
-                                        <div className="row">
-                                            <div className="col-sm-12">
-                                                <h4>Account Information</h4>
-                                            </div>
-                                            <div className="col-md-12">
-                                                <div className="form-group">
-                                                    <label htmlFor=""> Full Name</label>
-                                                    <input className="form-control" id="fname" name="fname" placeholder="Full Name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
-                                                    <span className="alert-error" />
-                                                </div>
-                                            </div>
-                                            {/* <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label htmlFor="">Last Name</label>
-                                                    <input className="form-control" id="lname" name="lname" placeholder="Last Name" type="text" ref={register} />
-                                                    <span className="alert-error" />
-                                                </div>
-                                            </div> */}
-                                            <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label htmlFor="">Email</label>
-                                                    <input className="form-control" id="email" name="email" placeholder="Enter email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                                                    <span className="alert-error" />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label htmlFor="">Set Password</label>
-                                                    <input className="form-control" id="password" name="password" placeholder="Enter Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                                                    <span w="alert-error" />
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        
                                         <div className="row">
                                             <div className="col-sm-12">
                                                 <h4>Payment Options</h4>
@@ -189,14 +198,14 @@ const CustomCart = () => {
 
                                                 {cardform ? 
                                                 <div className="col-sm-12">
-                                                    <div className="payimg ct-border" onClick={handlePaymentClick}>
+                                                    <div className="payimg ct-border" onClick={handleCardPaymentClick}>
                                                         <h4>Bank Card</h4>
                                                         <p>Pay with Mastercard, Amex, Visa & Mastero</p>
                                                     </div> 
                                                 </div> 
                                                 : 
                                                 <div className="col-sm-12">
-                                                    <div className="payimg cscursor" onClick={handlePaymentClick}>
+                                                    <div className="payimg cscursor" onClick={handleCardPaymentClick}>
                                                         <h4>Bank Card</h4>
                                                         <p>Pay with Mastercard, Amex, Visa & Mastero</p>
                                                     </div>
@@ -255,25 +264,34 @@ const CustomCart = () => {
                                             </div>}
 
                                             <div className="col-sm-12 mb-3">
-                                                <div className="payimg">
-                                                    <h4>Paypal</h4>
-                                                    <p>Simple & Secure to pay</p>
-                                                    {/* {!sdkReady ? (
-                                                        // TODO:: Loader/Spinner goes there
-                                                        ''
-                                                        ) : (
+                                                { paypalForm ? 
+                                                    <>
+                                                        <div className="payimg ct-border paypaArea"  onClick={handlePaypalPaymentClick}>
+                                                            <h4>Paypal</h4>
+                                                            <p>Simple & Secure to pay</p>
+                                                        </div>
+                                                        {/* {!sdkReady ? (
+                                                            // TODO:: Loader/Spinner goes there
+                                                            ''
+                                                            ) : (
+                                                            <PayPalButton
+                                                                // amount will be depends on student's order. E => amount={order.totalPrice}
+                                                                amount="100"
+                                                                onSuccess={successPaymentHandler}
+                                                            />
+                                                        )} */}
                                                         <PayPalButton
                                                             // amount will be depends on student's order. E => amount={order.totalPrice}
-                                                            amount="100"
+                                                            amount={totalAmount}
                                                             onSuccess={successPaymentHandler}
                                                         />
-                                                    )} */}
-                                                    <PayPalButton
-                                                        // amount will be depends on student's order. E => amount={order.totalPrice}
-                                                        amount={totalAmount}
-                                                        onSuccess={successPaymentHandler}
-                                                    />
-                                                </div>
+                                                    </>
+                                                : 
+                                                    <div className="payimg cscursor"  onClick={handlePaypalPaymentClick}>
+                                                        <h4>Paypal</h4>
+                                                        <p>Simple & Secure to pay</p>
+                                                    </div>
+                                                }
                                             </div>
 
                                         </div>

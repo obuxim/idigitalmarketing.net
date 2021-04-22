@@ -25,7 +25,14 @@ const cartProducts = [
     }
 ];
 const ISSERVER = typeof window === 'undefined';
+
 // logged in user 
+const userInfoFromStorage =
+    !ISSERVER && localStorage.getItem('userInfo')
+        ? JSON.parse(localStorage.getItem('userInfo'))
+        : null;
+
+// billing details
 const billingInfoFromStorage =
     !ISSERVER && localStorage.getItem('billingInfo')
         ? JSON.parse(localStorage.getItem('billingInfo'))
@@ -90,6 +97,19 @@ export const CartProvider = ({ children }) => {
 
 
     async function payOrder(paymentResult) {
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${userInfoFromStorage.token}`,
+            },
+          }
+      
+        //   const { data } = await axios.put(
+        //     `/api/orders/${orderId}/pay`,
+        //     paymentResult,
+        //     config
+        //   )
+      
         dispatch({
             type: 'ORDER_PAY_SUCCESS',
             payload: paymentResult

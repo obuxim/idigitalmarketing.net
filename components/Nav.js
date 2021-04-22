@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext/AuthState";
+import Link from "next/link";
+
 const Nav = () => {
+	const { user, userLogOut } = useContext(AuthContext);
 	return (
 		<nav className="navbar navbar-static-top navbar-expand-lg px-3 px-md-5">
 			<div className="container-fluid position-relative px-0">
@@ -189,9 +194,19 @@ const Nav = () => {
 								data-target="#loginModal"
 								href="#"
 							>
-								Hello sign in
+								
+								Hello { user && user !== null ? `${user.user_display_name}` : 'Sing In' }
 								<i className="fa fa-user pl-2 text-primary"></i>
 							</a>
+						</li>
+						<li className="user">
+						{ user && user !== null && 
+							<Link href="#">
+							<li style = {{ cursor: 'pointer' }} onClick={userLogOut}>
+								<a> Logout </a>
+							</li>
+						</Link>
+						}
 						</li>
 						<li className="cart dropdown">
 							<button
